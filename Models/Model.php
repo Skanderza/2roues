@@ -62,7 +62,7 @@ class Model{
 		$resultat = $sql->fetchColumn();
 		return $resultat;
 	}
-
+	
 
 
 

@@ -1,4 +1,5 @@
 <?php
+//session_start();
 require_once 'Model.php';
 class Utilisateur extends Model{
 
@@ -64,7 +65,8 @@ class Utilisateur extends Model{
 
         public function updateUtilisateur($id, $ut_nom, $ut_email){
             $bdd = Model::getConnection();
-            $sql = $bdd->prepare("UPDATE utilisateur SET ut_nom ='".$ut_nom."', ut_email ='".$ut_email."' WHERE id_utilisateur=".$id); 
+            $sql = $bdd->prepare("UPDATE utilisateur SET ut_nom ='".$ut_nom."', ut_email ='".$ut_email."' 
+            WHERE id_utilisateur=".$id); 
             if(!$sql->execute()){
         		die("Erreur requête");
         	}
@@ -79,9 +81,15 @@ class Utilisateur extends Model{
         		die("Erreur requête");
             }
             $coord = $sql->FETCH();
+
             if($coord['4'] === $hmdp){
-                session_start();
+                if($coord['3'] == 'ROLE_ADMI'){
+                    var_dump('admin ok');
+                    header("Location: http://localhost:8888/2roues_admin/");
+                }
+               
                 $_SESSION['id_utilisateur'] = $coord[0];
+                
                 $_SESSION['ut_nom'] = $coord[1];
                 $_SESSION['ut_email'] = $coord[2];
                 $_SESSION['ut_role'] = $coord[3];
@@ -90,7 +98,7 @@ class Utilisateur extends Model{
                 
             }
         }
-        
+       
        
 
         

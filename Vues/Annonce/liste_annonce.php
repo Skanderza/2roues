@@ -50,8 +50,6 @@
     </div>
   </div>
 </div>
-       
-      
         <?php
         echo "</tr>";
       }
@@ -60,3 +58,40 @@
 </table>
 
 </div>
+
+<?php foreach($allAnnonce as $annonce):?>
+ <?php $mb = 3;
+ $c = 0;
+ for($i=0; $i<3; $i++)
+{
+
+
+if($c == 0)
+
+
+echo'
+<div class="card-group  ">';
+echo'
+
+  <div class="card "><a href="./Vues/annonce/single_annonce.php?id='. $annonce->getId_annonce().'">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">'.
+      $annonce->getId_annonce()
+      .'</h5>
+      <p class="card-text">'.$annonce->getAn_libelle().'</p>
+      <p class="card-text">'.$annonce->getAn_prix().'</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">'.$annonce->getAn_date().'</small>
+      </a> </div>
+      <a href="./Vues/annonce/single_annonce2.php?id='. $annonce->getId_annonce().'">Lien</a>
+  </div>';
+  $c++;
+  if($c == 3){
+    echo'</div>';
+    $c = 0;
+  }
+}
+?>
+<?php endforeach ?>

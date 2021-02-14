@@ -1,6 +1,7 @@
 <?php
 session_start();
-    require_once "header.html";
+
+    require_once "header.php";
     require_once "Controlleurs/UtilisateurController.php";
     require_once "Controlleurs/AnnonceController.php";
     require_once "Controlleurs/CategorieController.php";
@@ -10,13 +11,36 @@ session_start();
     $annonce = new AnnonceController();
     $categorie = new CategorieController();
     $annonce = new AnnonceController();
+    if(isset ($_SESSION['ut_email'])){
+        echo  $_SESSION['ut_email'];
+        if($_GET['action'] == 'ajouterAnnonce'){
+            $annonce->nouvelleAnnonce();
+        }
+    }else{
+        echo 'pas connecter';
+        
+    }
     
-   
-if(isset($_GET['action'])){
+
+    if(!isset($_GET['action'])){
+        $annonce->listeAnnonce();
+        
+    }
+    if($_GET['action'] == 'supprimerAnnonce'){
+        $annonce->supprimerAnnonce($_GET['annonceId']);
+       
+
+    }
+    
+    if(isset($_GET['action'])){
    //Annonce
     if($_GET['action'] == 'annonce'){
+       
         $annonce->nouvelleAnnonce();
         $annonce->listeAnnonce();
+    }
+    if($_GET['action'] == 'ajouterAnnonce'){
+        $annonce->nouvelleAnnonce();
     }
     
     //Categorie
@@ -50,13 +74,9 @@ if(isset($_GET['action'])){
     if($_GET['action'] == 'inscription'){
         $utilisateur->nouveauUtilisateur();
      }
-
-}$annonce->listeAnnonce();
-
-
-
-
-
-
-
+     if($_GET['action'] == 'deconnexion'){
+        header("Location: logout.php");
+     }
+     
+}
 ?>

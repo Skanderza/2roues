@@ -27,7 +27,7 @@ class CategorieController{
                 foreach($categorieId as $value){
                     
                     $ca_libelle = $value->setCa_libelle($_POST['libelle']);
-                    var_dump($ca_libelle);die;
+                   // var_dump($ca_libelle);die;
                     $value->updateCategorie($id, $ca_libelle);
                 }
             }

@@ -71,7 +71,7 @@ echo "utilisateur ajouté";
 
 public function updateUtilisateur($id, $ut_nom, $ut_email){
 	$bdd = Model::getConnection();
-	var_dump($ut_nom);
+	//var_dump($ut_nom);
 	echo '=====>update '.$ut_nom;die;
 	
 	//$sql = $bdd->prepare("UPDATE utilisateur SET ut_nom =:ut_nom, ut_email = :ut_email WHERE id_utilisateur=".$id);
@@ -84,11 +84,6 @@ public function updateUtilisateur($id, $ut_nom, $ut_email){
 }
 
 
-public function __toString()
-    {
-		return ;
-		var_dump("=======>".$ut_nom);die;
-    }
 
 }
 ?>

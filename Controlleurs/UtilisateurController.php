@@ -17,16 +17,23 @@ public function addNewAdmin($login, $email, $pwd, $password)
         $query->execute();*/
 
 public function nouveauUtilisateur(){
-    require_once './Vues/formulaire_utilisateur.html';
+    require_once './Vues/Utilisateur/formulaire_utilisateur.html';
      
     if(isset($_POST['submit'])){ 
 
         $utilisateur = new Utilisateur();
-        $ut_nom = ($_POST['nom']);
-        $ut_email = ($_POST['email']);
-        $ut_mdp = ($_POST['mdp']);
-        $ut_role = 'user';
+        $ut_nom = $_POST['nom'];
+        $ut_email = $_POST['email'];
+        $ut_mdp = $_POST['mdp'];
+        $mdp2 = $_POST['mdp2'];
+        $ut_role = 'ROLE_USER';
         $hmdp = hash('sha256', $ut_mdp );
+        $hmdp2 = hash('sha256', $mdp2 );
+        if($hmdp != $hmdp2){
+            echo'<div class="alert alert-danger" role="alert">
+            Veuillez renseigner un mot de passe identique!
+          </div>';exit;
+        }
         $utilisateur->createUtilisateur($ut_nom, $ut_email, $ut_role, $hmdp);
         
         header("Location: index.php");
@@ -36,7 +43,7 @@ public function nouveauUtilisateur(){
 
 public function connexionUt(){
    
-        require_once './Vues/formulaire_connexion.html';
+        require_once './Vues/Utilisateur/formulaire_connexion.html';
     
         $utilisateur = new Utilisateur();
         if( !empty($_POST)){

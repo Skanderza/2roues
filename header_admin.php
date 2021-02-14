@@ -32,9 +32,9 @@
                   <li class="nav-item">
                     <a class="nav-link" href="?action=utilisateur">Utilisateur</a>
                   </li>
-
-                  
-                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="Controlleurs/Logout.php">Déconnexion</a>
+                  </li>
                 </ul>
                 
               </div>
