@@ -11,72 +11,55 @@ session_start();
     $annonce = new AnnonceController();
     $categorie = new CategorieController();
     $annonce = new AnnonceController();
-    if(isset ($_SESSION['ut_email'])){
-        echo  $_SESSION['ut_email'];
-        if($_GET['action'] == 'ajouterAnnonce'){
-            $annonce->nouvelleAnnonce();
-        }
-    }else{
-        echo 'pas connecter';
-        
-    }
     
+    //action null
+if(!isset($_GET['action'])){
+   $annonce->listeAnnonce();
+    //isset action         
+     }elseif(isset($_GET['action'])){
+                //si connecter
+                if(isset ($_SESSION['ut_email'])){
+                  
+                   // annonce
+                   if($_GET['action'] == 'ajouterAnnonce'){
+                    $annonce->nouvelleAnnonce();
+                }
+                if($_GET['action'] == 'mesAnnonces'){
+                    $annonce->afficherMesAnnonce($_SESSION['id_utilisateur']);
+                }
+                if($_GET['action'] == 'supprimerAnnonce'){
+                    $annonce->supprimerAnnonce($_GET['annonceId']);
+                }
+                if($_GET['action'] == 'modifierAnnonce'){
+                    $annonce->modifAnnonce($_GET['annonceId']);
+                }
+                if($_GET['action'] == 'singleAnnonce'){
+                    //var_dump("========>".$_GET['annonceId']);die;
+                    $annonce->voirAnnonce($_GET['annonceId']);
 
-    if(!isset($_GET['action'])){
-        $annonce->listeAnnonce();
-        
-    }
-    if($_GET['action'] == 'supprimerAnnonce'){
-        $annonce->supprimerAnnonce($_GET['annonceId']);
-       
+                }
 
-    }
-    
-    if(isset($_GET['action'])){
-   //Annonce
-    if($_GET['action'] == 'annonce'){
-       
-        $annonce->nouvelleAnnonce();
-        $annonce->listeAnnonce();
-    }
-    if($_GET['action'] == 'ajouterAnnonce'){
-        $annonce->nouvelleAnnonce();
-    }
-    
-    //Categorie
-    if($_GET['action'] == 'categorie'){
-        $categorie->nouvelleCategorie();
-        echo "</br>";
-        $categorie->listeCategorie();
 
-    }
-    if($_GET['action'] == 'modifierCategorie'){
-        $categorie->modifCategorie($_GET['categorieId']);
-    }
-    if($_GET['action'] == 'supprimerCategorie'){
-        $categorie->supprimerCategorie($_GET['categorieId']);
-    }
-    //utilisateur
-    if($_GET['action'] == 'utilisateur'){
-        $utilisateur->listeUtilisateur();
-    }
-    if($_GET['action'] == 'modifierUtilisateur'){
-        $utilisateur->modifUtilisateur($_GET['utilisateurId']);
-        
-    }
-    if($_GET['action'] == 'supprimerUtilisateur'){
-        $utilisateur->supprimerUtilisateur($_GET['utilisateurId']);
-    }
-    if($_GET['action'] == 'connexion'){
-        
-        $utilisateur->connexionUt();
-    }
-    if($_GET['action'] == 'inscription'){
-        $utilisateur->nouveauUtilisateur();
-     }
-     if($_GET['action'] == 'deconnexion'){
-        header("Location: logout.php");
-     }
-     
+                }
+                
+                else{
+                    //si pas connecter
+                    //annonce
+                    if($_GET['action'] == 'ajouterAnnonce'){
+                        $utilisateur->connexionUt();
+                    }
+                    //utilisateur
+                    if($_GET['action'] == 'connexion'){
+                        
+                        $utilisateur->connexionUt();
+                    }
+                    if($_GET['action'] == 'inscription'){
+                        $utilisateur->nouveauUtilisateur();
+                    }
+                }
+                    if($_GET['action'] == 'deconnexion'){
+                        header("Location: logout.php");
+                    }
+                    
 }
 ?>

@@ -150,25 +150,35 @@ return $this;
 
 
 public function createAnnonce($an_libelle, $an_prix, $an_description, $an_telephone,
-$an_etat, $an_date, $id_categorie){
-    /*INSERT INTO annonce (an_libelle, an_prix, an_description, an_telephone, an_etat, an_date, id_categorie) 
-    VALUES ('an_libelle',
-            32, 
-            'scription',
-            55555,'$an_etat', 
-            '2008-7-04',
-            33)*/
+    $an_etat, $an_date, $id_categorie, $id_utilisateur){
+    
     $bdd = Model::getConnection();
-    $requete = $bdd->prepare("INSERT INTO annonce (an_libelle, an_prix, an_description, an_telephone, an_etat, id_categorie)
-     VALUES ('$an_libelle', $an_prix, '$an_description', $an_telephone,
-   '$an_etat', $id_categorie)");
-   //var_dump($requete);
+    $requete = $bdd->prepare("INSERT INTO annonce (an_libelle, an_prix, an_date, an_description, an_telephone, an_etat,  id_utilisateur, id_categorie)
+     VALUES ('$an_libelle', $an_prix, '$an_date', '$an_description', $an_telephone, '$an_etat', $id_utilisateur, $id_categorie)");
+  
     if(!$requete->execute()){
         die("Erreur requête");
     }
-    header("Location: index.php?action=annonce");exit;
+    echo'<div class="alert alert-success" role="alert">
+    Annonce ajouté!</div>';
 }
 
+
+public function findByidAnnonce($id){
+        $bdd = $this->getConnection();
+		$sql = $bdd->prepare("SELECT * FROM annonce WHERE id_utilisateur = ".$id);
+		$sql->execute();
+		$resultat = $sql->fetchAll(PDO::FETCH_CLASS, 'annonce');
+		return $resultat;
+}
+
+public function findCategorieById($id){
+    $bdd = $this->getConnection();
+    $sqlCa = $bdd->prepare("SELECT * FROM categorie c INNER JOIN annonce a ON c.id_categorie = a.id_categorie WHERE a.id_utilisateur = ".$id);
+        $sqlCa->execute();
+        $resultatCa = $sqlCa->fetchAll(PDO::FETCH_COLUMN, 1);
+       return $resultatCa;
+}
 
 
 

@@ -55,12 +55,31 @@ class Utilisateur extends Model{
 
     public Function createUtilisateur($ut_nom, $ut_email, $ut_role, $hmdp){
             $bdd = Model::getConnection();
-            $requete = $bdd->prepare("INSERT INTO utilisateur (ut_nom, ut_email,ut_role, ut_mdp) 
-             VALUE ('$ut_nom', '$ut_email', '$ut_role', '$hmdp') ");
-            if(!$requete->execute()){
-                die("Erreur requête");
-            }
-           echo "utilisateur ajouté";
+            $searchEmail = $bdd->prepare("SELECT * FROM utilisateur WHERE ut_email ='$ut_email'");
+          
+            $searchEmail->execute();
+          
+            $resultat = $searchEmail->fetch();
+            
+            if($resultat > 0 ){
+                
+                //header("Location: index.php?action=inscription");
+                echo '<div class="alert alert-danger" role="alert">
+                Cet email a déja un compte ! 
+                </div>';
+                exit;
+            }else{  
+                $requete = $bdd->prepare("INSERT INTO utilisateur (ut_nom, ut_email,ut_role, ut_mdp) 
+                VALUE ('$ut_nom', '$ut_email', '$ut_role', '$hmdp') ");
+                if(!$requete->execute()){
+                    die("Erreur requête");
+                }
+                echo '<div class="alert alert-success" role="alert">
+                Inscription reussis ! 
+                </div>';
+            } exit;
+          
+            
         }
 
         public function updateUtilisateur($id, $ut_nom, $ut_email){
@@ -80,26 +99,34 @@ class Utilisateur extends Model{
             if(!$sql->execute()){
         		die("Erreur requête");
             }
-            $coord = $sql->FETCH();
+            $coord = $sql->FETCHALL();
 
-            if($coord['4'] === $hmdp){
-                if($coord['3'] == 'ROLE_ADMI'){
-                    var_dump('admin ok');
-                    header("Location: http://localhost:8888/2roues_admin/");
+
+            if($coord[0]["ut_mdp"] === $hmdp){
+                
+                if($coord[0]['ut_role'] == 'ROLE_ADMI'){
+                   
+                   header("Location: http://localhost:8888/2roues_admin/?action=connexion");
+                }else{
+                    $_SESSION['id_utilisateur'] = $coord[0][0];
+                    $_SESSION['ut_nom'] = $coord[0][1];
+                    $_SESSION['ut_email'] = $coord[0][2];
+                    $_SESSION['ut_role'] = $coord[0][3];
+                    header("Location: index.php");
+                    //echo 'connection ok';
                 }
-               
-                $_SESSION['id_utilisateur'] = $coord[0];
-                
-                $_SESSION['ut_nom'] = $coord[1];
-                $_SESSION['ut_email'] = $coord[2];
-                $_SESSION['ut_role'] = $coord[3];
-                header("Location: index.php");
-                echo 'connection ok';
-                
             }
         }
        
-       
+        public function findByUtilisateur($id_utilisateur){
+            $bdd = Model::getConnection();
+            $sql = $bdd->prepare("SELECT id_annonce FROM annonce a
+            INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur WHERE a.id_utilisateur ='.$id_utilisateur'");
+            if(!$sql->execute()){
+        		die("Erreur requête");
+            }
+            $coord = $sql->FETCHALL();
+        }
 
         
 

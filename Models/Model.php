@@ -21,6 +21,7 @@ class Model{
 		$sql->execute();
 		$resultat = $sql->fetchAll(PDO::FETCH_CLASS, $table);
 		return $resultat;
+		
 	}
 	
 	public function deleteById($id, $table)
@@ -35,10 +36,13 @@ class Model{
 			header("Location: index.php?action=categorie");
 
 		}else if($table = 'utilisateur'){
+
 			header("Location: index.php?action=utilisateur");
-		}else{
-			header("Location: index.php");
+
 		}
+		
+		header('Location: index.php?action=mesAnnonces');
+		
 		
 	}
 	

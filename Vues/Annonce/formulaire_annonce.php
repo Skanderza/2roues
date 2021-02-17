@@ -1,13 +1,9 @@
 <?php
-session_start();
-if(isset($_SESSION['ut_role'])){
-
-
-  require_once "../../header.php";
-  echo 'Bonjour '.$_SESSION['ut_email'];
+//session_start();
+if(isset($_SESSION['ut_nom'])){
+  require_once "header.php";
+  echo 'Bonjour '.$_SESSION['ut_nom'];
   ?>
-  
-  
   
   <!DOCTYPE html>
   <html>
@@ -25,7 +21,7 @@ if(isset($_SESSION['ut_role'])){
             <label for="categorie">Categorie</label>
             <select class="form-control" name="categorie" id="categorie" required>
                 <option value=" ">Choisir une catégorie</option>
-                <option value="32">Vélo</option>
+                <option value="62">Vélo</option>
                 <option value="33">Vélo électrique</option>
                 <option value="36">Trotinette</option>
                 <option value="43">Trotinette électrique</option></select>
@@ -68,10 +64,4 @@ if(isset($_SESSION['ut_role'])){
       </body>
   </html>
   <?php  
-
-
-
-}else{
-  echo'Veuillez vous connecter';
-  header("Location: login.php");
 }
