@@ -6,24 +6,33 @@ session_start();
     require_once "Controlleurs/AnnonceController.php";
     require_once "Controlleurs/CategorieController.php";
     require_once "Controlleurs/AnnonceController.php";
+    require_once "Controlleurs/ImageController.php";
 
     $utilisateur = new UtilisateurController();
     $annonce = new AnnonceController();
     $categorie = new CategorieController();
     $annonce = new AnnonceController();
+    $image = new ImageController();
     
     //action null
 if(!isset($_GET['action'])){
    $annonce->listeAnnonce();
     //isset action         
      }elseif(isset($_GET['action'])){
+        
                 //si connecter
                 if(isset ($_SESSION['ut_email'])){
                   
                    // annonce
                    if($_GET['action'] == 'ajouterAnnonce'){
                     $annonce->nouvelleAnnonce();
+                    
                 }
+                if($_GET['action'] == 'ajouterImage'){
+                    
+                    $image->nouvelleImage();
+                }
+                
                 if($_GET['action'] == 'mesAnnonces'){
                     $annonce->afficherMesAnnonce($_SESSION['id_utilisateur']);
                 }
@@ -34,9 +43,8 @@ if(!isset($_GET['action'])){
                     $annonce->modifAnnonce($_GET['annonceId']);
                 }
                 if($_GET['action'] == 'singleAnnonce'){
-                    //var_dump("========>".$_GET['annonceId']);die;
                     $annonce->voirAnnonce($_GET['annonceId']);
-
+                
                 }
 
 

@@ -2,7 +2,7 @@
 //session_start();
 if(isset($_SESSION['ut_nom'])){
   require_once "header.php";
-  echo 'Bonjour '.$_SESSION['ut_nom'];
+  
   ?>
   
   <!DOCTYPE html>
@@ -16,8 +16,8 @@ if(isset($_SESSION['ut_nom'])){
       <body>
   <div class="container">
       <h4>Ajouter Annonce</h4>
-        <form method="post">
-          <div class="form-group">
+        <form method="post" enctype="multipart/form-data">
+          <div class="form-group" enctype="multipart/form-data">
             <label for="categorie">Categorie</label>
             <select class="form-control" name="categorie" id="categorie" required>
                 <option value=" ">Choisir une catégorie</option>
@@ -29,23 +29,23 @@ if(isset($_SESSION['ut_nom'])){
         
             <div class="form-group">
               <label>Titre</label>
-              <input type="text" class="form-control" name="libelle" required>
+              <input type="text" class="form-control" name="libelle" ><!--required-->
             </div>
             <div class="form-group">
               <label>Prix</label>
-              <input type="number" class="form-control" name="prix" required>
+              <input type="number" class="form-control" name="prix" ><!--required-->
             </div>
             <div class="form-group">
               <label>Description</label>
-              <input type="text" class="form-control" name="description" required>
+              <textarea type="text" class="form-control" name="description" > </textarea><!--required-->
             </div>
             <div class="form-group">
               <label>Telephone</label>
-              <input type="text" class="form-control" name="telephone" required>
+              <input type="text" class="form-control" name="telephone" ><!--required-->
             </div>
             <div class="form-group">
               <label for="etat">Etat</label>
-              <select class="form-control" name="etat" id="etat" required>
+              <select class="form-control" name="etat" id="etat" >
                   <option value=" ">Choisir un état</option>
                   <option value="a">État neuf</option>
                   <option value="b">Très bon état</option>
@@ -53,13 +53,15 @@ if(isset($_SESSION['ut_nom'])){
                   <option value="d">État satisfaisant</option>
                   <option value="e">Défectueux</option>
               </select>
-            </div>
-            
+             
+
+
+<!--<input type="hidden" name="MAX_FILE_SIZE" value="250000" />-->
+<!--Empechez les photos de plus de 250000 o-->
+        
           </br>
           <button type="submit" class="btn btn-success" name="submit">Enregistrer</button>
-           
-          </form>
-        
+          
     </div>
       </body>
   </html>

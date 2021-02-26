@@ -7,8 +7,9 @@ class Model{
 			$db =new PDO('mysql:host=localhost;dbname=deux_roues', "root", "root");
 		}
 		catch(PDOException $e){
-			print "Erreur";
-			die;
+			 
+			die("Erreur");
+			
 		}
 		return $db;
 		

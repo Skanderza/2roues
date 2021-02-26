@@ -20,3 +20,7 @@ echo'
 
 
 <?php endforeach ?>
+
+
+
+<p>Image <?= $GLOBALS['PATH'].$annonce['img_nom'] ?></p>

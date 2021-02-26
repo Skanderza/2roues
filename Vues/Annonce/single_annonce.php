@@ -1,40 +1,51 @@
 
 
+<?php
+  if(!isset($_SESSION)){
 
-  
-<center><h2>Mes annonces</h2></center>
-
-
-<div class="container">
+  }?>
 
 
+</br></br></br></br>
+<div class="container bg-light">
+<fieldset class="border p-2">
+   <legend  class="w-auto"><center><h3><?= $monAnnonce[0]['ut_nom']?></h3></center></legend>
 
 <table class="table">
-  <thead>
-    <tr>
-      
-      <th scope="col">Titre</th>
-      <th scope="col">Prix</th>
-      <th scope="col">Publié le</th>
-      <th scope="col">description</th>
-      <th scope="col">Contact</th>
-      <th scope="col">etat</th>
-      <th scope="col">Catégorie</th>
-    </tr>
-  </thead>
+
   <tbody>
-    <tr>
-      
-      <td><?php echo $monAnnonce[0]->getAn_libelle();?></td>
-      <td><?php echo $monAnnonce[0]->getAn_prix();?> €</td>
-      <td><?php echo $monAnnonce[0]->getAn_date();?></td>
-      <td><?php echo $monAnnonce[0]->getAn_description();?></td>
-      <td><?php echo $monAnnonce[0]->getAn_telephone();?></td>
-      <td><?php echo $monAnnonce[0]->getAn_etat();?></td>
-      <td><?php echo $monAnnonce[0]->getId_categorie();?></td>
+  <tr>
+      <th scope="row">Catégorie</th>
+      <td><?= $monAnnonce[0]['ca_libelle']?></td>
     </tr>
+    <tr>
+      <th scope="row">Description</th>
+      <td><?= $monAnnonce[0]['an_description']?></td>
+    </tr>
+    <tr>
+      <th scope="row">Etat</th>
+      <td><?= $monAnnonce[0]['an_etat']?></td>
+    </tr>
+    <tr>
+      <th scope="row">Prix</th>
+      <td><?= $monAnnonce[0]['an_prix']." "."€"?></td>
+    </tr>
+    <tr>
+      <th scope="row">Publié par</th>
+      <td><?= $monAnnonce[0]['ut_nom']?></td>
+    </tr>
+    <tr>
+      <th scope="row">Contact</th>
+      <td><?= $monAnnonce[0]['an_telephone']?></td>
+    </tr>
+    
+    <tr>
+      <th scope="row">Publié le</th>
+      <td><?= $monAnnonce[0]['an_date']?></td>
+    </tr>
+
     
   </tbody>
 </table>
-
+</fieldset>
 </div>

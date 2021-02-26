@@ -12,6 +12,7 @@ private $an_telephone;
 private $an_etat;
 private $id_utilisateur;
 private $id_categorie;
+private $id_image;
 
 
 //getter && setter
@@ -146,6 +147,20 @@ return $this;
 }
 
 
+public function getId_image()
+{
+return $this->id_image;
+}
+
+
+public function setId_image($id_image)
+{
+$this->id_image = $id_image;
+
+return $this;
+}
+
+
 
 
 
@@ -155,12 +170,23 @@ public function createAnnonce($an_libelle, $an_prix, $an_description, $an_teleph
     $bdd = Model::getConnection();
     $requete = $bdd->prepare("INSERT INTO annonce (an_libelle, an_prix, an_date, an_description, an_telephone, an_etat,  id_utilisateur, id_categorie)
      VALUES ('$an_libelle', $an_prix, '$an_date', '$an_description', $an_telephone, '$an_etat', $id_utilisateur, $id_categorie)");
-  
+//var_dump($requete);die;
     if(!$requete->execute()){
         die("Erreur requête");
+    }else{
+      
+        echo '<script language="javascript">';
+                echo 'alert("Ajoutez maintenant une photo.");';
+                echo 'window.location.href="http://localhost:8888/2roues/index.php?action=ajouterImage";';
+                echo '</script>';
+        
+       
+        
     }
-    echo'<div class="alert alert-success" role="alert">
-    Annonce ajouté!</div>';
+   //echo'<div class="alert alert-success" role="alert">
+   // Annonce ajouté!</div>';
+  // var_dump("okkkkk");die;
+    
 }
 
 
@@ -179,6 +205,58 @@ public function findCategorieById($id){
         $resultatCa = $sqlCa->fetchAll(PDO::FETCH_COLUMN, 1);
        return $resultatCa;
 }
+public function updateAnnonce($id, $an_libelle, $an_prix, $an_telephone){
+    $bdd = Model::getConnection();
+    $sql = $bdd->prepare("UPDATE annonce SET an_libelle ='".$an_libelle."', an_prix ='".$an_prix."', an_telephone ='".$an_telephone."' WHERE id_annonce =".$id);
+    
+    if(!$sql->execute()){
+        die("Erreur requête");
+    }
+    
+    header("Location: index.php?action=mesAnnonces");
+    
+}
+
+public function nomUtilisateurParId($id_utilisateur){
+    $bdd = Model::getConnection();
+    $sql = $bdd->prepare("SELECT ut_nom FROM utilisateur u INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur WHERE a.id_utilisateur =".$id_utilisateur);
+    $sql->execute();
+   return $resultat = $sql->fetch(PDO::FETCH_COLUMN, 0);
+   //var_dump($resultat);echo'</br>';
+}
+///////////////////////
+public function annonceNomUtilsateur(){
+    $bdd = Model::getConnection();
+    //$sql = $bdd->prepare(" SELECT id_annonce, u.ut_nom, an_prix, an_libelle, an_date, a.id_utilisateur FROM utilisateur u INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur ");
+    $sql = $bdd->prepare(" SELECT DISTINCT a.id_annonce, u.ut_nom, a.an_prix, a.an_libelle, a.an_date, a.id_utilisateur, i.img_nom FROM utilisateur u 
+    INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur 
+    INNER JOIN image i ON u.id_utilisateur = i.id_utilisateur GROUP BY a.id_annonce
+");
+    $sql->execute();
+    return $resultat =$sql->fetchAll();
+    var_dump($resultat);die;
+}
+
+public function findByIfSingleAnnonce($id){
+    $bdd = Model::getConnection();
+    $sql = $bdd->prepare(" SELECT a.id_annonce, u.ut_nom, a.an_telephone, a.an_etat, a.an_prix, 
+    a.an_libelle,a.an_description, a.an_date, a.id_utilisateur, c.ca_libelle 
+    FROM utilisateur u INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur 
+    INNER JOIN categorie c on a.id_categorie = c.id_categorie WHERE a.id_annonce =".$id);
+    
+    $sql->execute();
+    return $resultat =$sql->fetchAll();
+    var_dump($resultat);
+    var_dump('resultat');die;
+    echo'</br>';
+    echo'</br>';
+    echo'</br>';
+    echo'</br>';
+    
+}
+
+
+
 
 
 

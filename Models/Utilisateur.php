@@ -63,7 +63,7 @@ class Utilisateur extends Model{
             
             if($resultat > 0 ){
                 
-                //header("Location: index.php?action=inscription");
+                
                 echo '<div class="alert alert-danger" role="alert">
                 Cet email a déja un compte ! 
                 </div>';
@@ -100,12 +100,8 @@ class Utilisateur extends Model{
         		die("Erreur requête");
             }
             $coord = $sql->FETCHALL();
-
-
             if($coord[0]["ut_mdp"] === $hmdp){
-                
                 if($coord[0]['ut_role'] == 'ROLE_ADMI'){
-                   
                    header("Location: http://localhost:8888/2roues_admin/?action=connexion");
                 }else{
                     $_SESSION['id_utilisateur'] = $coord[0][0];
@@ -113,9 +109,11 @@ class Utilisateur extends Model{
                     $_SESSION['ut_email'] = $coord[0][2];
                     $_SESSION['ut_role'] = $coord[0][3];
                     header("Location: index.php");
-                    //echo 'connection ok';
                 }
             }
+            echo '<div class="alert alert-danger" role="alert">
+            Mot de passe incorrecte!
+          </div>';   exit;         
         }
        
         public function findByUtilisateur($id_utilisateur){
