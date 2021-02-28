@@ -16,11 +16,11 @@
 <?php// echo $GLOBALS['PATH']?>
 </br>
 
-<?php //echo "<img src=".$GLOBALS['PATH'].$annonce['img_nom'].">"; ?>
-<?php echo "<img src='2rouesImage/{$annonce['img_nom']}' style='width:350px'>"; ?>
 
 
-<p class="card-text"> <?= $annonce['img_nom']?></p> 
+
+
+<p class="card-text text-center"> <?php echo "<img src='2rouesImage/{$annonce['img_nom']}' style='width:150px'>"; ?></p> 
   <p class="card-text"> <?= $annonce['an_prix']?>€</p> 
   <p class="card-footer bg-success text-white"><i style="color:black">Publié le: </i> <?= $annonce['an_date']?></p> 
   <?php

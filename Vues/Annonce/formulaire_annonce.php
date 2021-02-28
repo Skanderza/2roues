@@ -2,9 +2,7 @@
 //session_start();
 if(isset($_SESSION['ut_nom'])){
   require_once "header.php";
-  
   ?>
-  
   <!DOCTYPE html>
   <html>
       <head>
@@ -26,43 +24,35 @@ if(isset($_SESSION['ut_nom'])){
                 <option value="36">Trotinette</option>
                 <option value="43">Trotinette électrique</option></select>
           </div>
-        
             <div class="form-group">
               <label>Titre</label>
-              <input type="text" class="form-control" name="libelle" ><!--required-->
+              <input type="text" class="form-control" name="libelle" required >
             </div>
             <div class="form-group">
               <label>Prix</label>
-              <input type="number" class="form-control" name="prix" ><!--required-->
+              <input type="number" class="form-control" name="prix" required>
             </div>
             <div class="form-group">
               <label>Description</label>
-              <textarea type="text" class="form-control" name="description" > </textarea><!--required-->
+              <textarea type="text" class="form-control" name="description" required> </textarea>
             </div>
             <div class="form-group">
               <label>Telephone</label>
-              <input type="text" class="form-control" name="telephone" ><!--required-->
+              <input type="text" class="form-control" name="telephone" required>
             </div>
             <div class="form-group">
               <label for="etat">Etat</label>
               <select class="form-control" name="etat" id="etat" >
                   <option value=" ">Choisir un état</option>
-                  <option value="a">État neuf</option>
-                  <option value="b">Très bon état</option>
-                  <option value="c">Bon état</option>
-                  <option value="d">État satisfaisant</option>
-                  <option value="e">Défectueux</option>
+                  <option value="neuf">État neuf</option>
+                  <option value="tres-Bon-etat">Très bon état</option>
+                  <option value="bon-etat">Bon état</option>
+                  <option value="satisfaisant">État satisfaisant</option>
+                  <option value="défectueux">Défectueux</option>
               </select>
-             
-
-
-<!--<input type="hidden" name="MAX_FILE_SIZE" value="250000" />-->
-<!--Empechez les photos de plus de 250000 o-->
-        
           </br>
           <button type="submit" class="btn btn-success" name="submit">Enregistrer</button>
-          
-    </div>
+         </div>
       </body>
   </html>
   <?php  

@@ -54,7 +54,7 @@ class Utilisateur extends Model{
     //
 
     public Function createUtilisateur($ut_nom, $ut_email, $ut_role, $hmdp){
-            $bdd = Model::getConnection();
+            $bdd = Model::connection();
             $searchEmail = $bdd->prepare("SELECT * FROM utilisateur WHERE ut_email ='$ut_email'");
           
             $searchEmail->execute();
@@ -82,18 +82,10 @@ class Utilisateur extends Model{
             
         }
 
-        public function updateUtilisateur($id, $ut_nom, $ut_email){
-            $bdd = Model::getConnection();
-            $sql = $bdd->prepare("UPDATE utilisateur SET ut_nom ='".$ut_nom."', ut_email ='".$ut_email."' 
-            WHERE id_utilisateur=".$id); 
-            if(!$sql->execute()){
-        		die("Erreur requête");
-        	}
-        	header("Location: index.php?action=utilisateur");
-        }
+       
 
         public function signIn($email, $hmdp){
-            $bdd = Model::getConnection();
+            $bdd = Model::connection();
             $sql = $bdd->prepare("SELECT id_utilisateur, ut_nom, ut_email, ut_role, ut_mdp
             FROM utilisateur WHERE ut_email = '$email' AND ut_mdp = '$hmdp'");
             if(!$sql->execute()){
@@ -117,7 +109,7 @@ class Utilisateur extends Model{
         }
        
         public function findByUtilisateur($id_utilisateur){
-            $bdd = Model::getConnection();
+            $bdd = Model::connection();
             $sql = $bdd->prepare("SELECT id_annonce FROM annonce a
             INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur WHERE a.id_utilisateur ='.$id_utilisateur'");
             if(!$sql->execute()){
@@ -127,7 +119,12 @@ class Utilisateur extends Model{
         }
 
         
-
+public function mdpModif($ut_email){
+    $bdd = Model::connection();
+    $sql = $bdd->prepare("SELECT COUNT(*) AS nb FROM utilisateur WHERE ut_email = '$email'");
+    $sql->execute();
+    var_dump($sql);die;
+}
         
 
 }

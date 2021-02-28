@@ -26,13 +26,10 @@ if(!isset($_GET['action'])){
                    // annonce
                    if($_GET['action'] == 'ajouterAnnonce'){
                     $annonce->nouvelleAnnonce();
-                    
                 }
                 if($_GET['action'] == 'ajouterImage'){
-                    
                     $image->nouvelleImage();
                 }
-                
                 if($_GET['action'] == 'mesAnnonces'){
                     $annonce->afficherMesAnnonce($_SESSION['id_utilisateur']);
                 }
@@ -44,13 +41,9 @@ if(!isset($_GET['action'])){
                 }
                 if($_GET['action'] == 'singleAnnonce'){
                     $annonce->voirAnnonce($_GET['annonceId']);
-                
                 }
 
-
-                }
-                
-                else{
+                } else{
                     //si pas connecter
                     //annonce
                     if($_GET['action'] == 'ajouterAnnonce'){

@@ -167,7 +167,7 @@ return $this;
 public function createAnnonce($an_libelle, $an_prix, $an_description, $an_telephone,
     $an_etat, $an_date, $id_categorie, $id_utilisateur){
     
-    $bdd = Model::getConnection();
+    $bdd = Model::connection();
     $requete = $bdd->prepare("INSERT INTO annonce (an_libelle, an_prix, an_date, an_description, an_telephone, an_etat,  id_utilisateur, id_categorie)
      VALUES ('$an_libelle', $an_prix, '$an_date', '$an_description', $an_telephone, '$an_etat', $id_utilisateur, $id_categorie)");
 //var_dump($requete);die;
@@ -182,33 +182,33 @@ public function createAnnonce($an_libelle, $an_prix, $an_description, $an_teleph
         
        
         
-    }
-   //echo'<div class="alert alert-success" role="alert">
-   // Annonce ajouté!</div>';
-  // var_dump("okkkkk");die;
-    
+    }    
 }
 
 
 public function findByidAnnonce($id){
-        $bdd = $this->getConnection();
+        $bdd = $this->connection();
 		$sql = $bdd->prepare("SELECT * FROM annonce WHERE id_utilisateur = ".$id);
-		$sql->execute();
 		$resultat = $sql->fetchAll(PDO::FETCH_CLASS, 'annonce');
 		return $resultat;
 }
 
 public function findCategorieById($id){
-    $bdd = $this->getConnection();
-    $sqlCa = $bdd->prepare("SELECT * FROM categorie c INNER JOIN annonce a ON c.id_categorie = a.id_categorie WHERE a.id_utilisateur = ".$id);
+    $bdd = $this->connection();
+    $sqlCa = $bdd->prepare("SELECT * FROM categorie c INNER JOIN annonce a 
+    ON c.id_categorie = a.id_categorie WHERE a.id_utilisateur = ".$id);
         $sqlCa->execute();
         $resultatCa = $sqlCa->fetchAll(PDO::FETCH_COLUMN, 1);
        return $resultatCa;
 }
-public function updateAnnonce($id, $an_libelle, $an_prix, $an_telephone){
-    $bdd = Model::getConnection();
-    $sql = $bdd->prepare("UPDATE annonce SET an_libelle ='".$an_libelle."', an_prix ='".$an_prix."', an_telephone ='".$an_telephone."' WHERE id_annonce =".$id);
-    
+
+
+
+
+public function updateAnnonce($id, $an_libelle, $an_prix, $an_telephone, $an_description){
+    $bdd = Model::connection();
+    $sql = $bdd->prepare("UPDATE annonce SET an_libelle ='".$an_libelle."', an_prix ='".$an_prix."', an_telephone ='".$an_telephone."',  an_description ='".$an_description."' WHERE id_annonce =".$id);
+    //var_dump($sql);die;
     if(!$sql->execute()){
         die("Erreur requête");
     }
@@ -218,7 +218,7 @@ public function updateAnnonce($id, $an_libelle, $an_prix, $an_telephone){
 }
 
 public function nomUtilisateurParId($id_utilisateur){
-    $bdd = Model::getConnection();
+    $bdd = Model::connection();
     $sql = $bdd->prepare("SELECT ut_nom FROM utilisateur u INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur WHERE a.id_utilisateur =".$id_utilisateur);
     $sql->execute();
    return $resultat = $sql->fetch(PDO::FETCH_COLUMN, 0);
@@ -226,7 +226,7 @@ public function nomUtilisateurParId($id_utilisateur){
 }
 ///////////////////////
 public function annonceNomUtilsateur(){
-    $bdd = Model::getConnection();
+    $bdd = Model::connection();
     //$sql = $bdd->prepare(" SELECT id_annonce, u.ut_nom, an_prix, an_libelle, an_date, a.id_utilisateur FROM utilisateur u INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur ");
     $sql = $bdd->prepare(" SELECT DISTINCT a.id_annonce, u.ut_nom, a.an_prix, a.an_libelle, a.an_date, a.id_utilisateur, i.img_nom FROM utilisateur u 
     INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur 
@@ -238,7 +238,7 @@ public function annonceNomUtilsateur(){
 }
 
 public function findByIfSingleAnnonce($id){
-    $bdd = Model::getConnection();
+    $bdd = Model::connection();
     $sql = $bdd->prepare(" SELECT a.id_annonce, u.ut_nom, a.an_telephone, a.an_etat, a.an_prix, 
     a.an_libelle,a.an_description, a.an_date, a.id_utilisateur, c.ca_libelle 
     FROM utilisateur u INNER JOIN annonce a ON u.id_utilisateur = a.id_utilisateur 

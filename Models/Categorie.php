@@ -21,27 +21,6 @@ class Categorie extends Model{
       return  $this->ca_libelle = $ca_libelle;
 
     }
-public function createCategorie($ca_libelle){
-    $bdd = Model::getConnection();
-    $requete = $bdd->prepare("INSERT INTO categorie (ca_libelle) VALUE ('$ca_libelle') ");
-    if(!$requete->execute()){
-        die("Erreur requête");
-    }
-    header("Location: index.php?action=categorie");exit;
-}
-
-public function updateCategorie($id, $ca_libelle){
-    $bdd = Model::getConnection();
-    $requete = $bdd->prepare("UPDATE categorie SET ca_libelle='".$ca_libelle."' WHERE id_categorie=".$id);
-    if(!$requete->execute()){
-        die("Erreur requête");
-    }
-
-    header("Location: index.php?action=categorie");
-}
-
-
-
 
     
 }

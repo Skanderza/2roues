@@ -47,7 +47,7 @@ class Image extends Model{
 
 
     public function createImage($id_utilisateur, $img_nom){
-        $bdd = Model::getConnection();
+        $bdd = Model::connection();
         $requete = $bdd->prepare("INSERT INTO image (img_nom, id_utilisateur)
      VALUES ('$img_nom', $id_utilisateur)");
      //var_dump( $_FILES['fic']["tmp_name"]);die;

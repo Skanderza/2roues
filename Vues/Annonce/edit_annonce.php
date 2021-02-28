@@ -18,7 +18,7 @@ foreach($annonceId as $annonce){
 				  </div>
 				  <div class="form-group">
 				    <label>Description</label>
-				    <textarea class="form-control" name="telephone" value="><?php echo $annonce->getAn_description(); ?>" required> </textarea>
+				    <textarea class="form-control" name="description" value="><?php echo $annonce->getAn_description(); ?>" rows="3" required> </textarea>
 				  </div>
                   
 </br>

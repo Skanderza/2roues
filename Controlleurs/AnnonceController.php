@@ -63,9 +63,10 @@ public function modifAnnonce($id){
         foreach($annonceId as $value){
             $an_libelle = $value->setAn_libelle($_POST['libelle'])->getAn_libelle();
             $an_prix = $value->setAn_prix($_POST['prix'])->getAn_prix();
+            $an_description = $value->setAn_description($_POST['description'])->getAn_description();
             $an_telephone = $value->setAn_telephone($_POST['telephone'])->getAn_telephone();
             //var_dump($value);
-            $value->updateAnnonce($id, $an_libelle, $an_prix, $an_telephone);
+            $value->updateAnnonce($id, $an_libelle, $an_prix, $an_telephone, $an_description);
         }
     }
 }

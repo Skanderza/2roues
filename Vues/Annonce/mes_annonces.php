@@ -13,7 +13,7 @@ Vous n\'avez pas d\'annonce!
       <th scope="col">#</th>
       <th scope="col">Titre</th>
       <th scope="col">Prix</th>
-      <th scope="col">Categorie</th>
+      <th scope="col">Description</th>
       <th scope="col">Date</th>
       <th scope="col">Modification</th>
       <th scope="col">Suppression</th>
@@ -23,17 +23,13 @@ Vous n\'avez pas d\'annonce!
     <?php
     
     foreach($monAnnonce as $annonce){
-      //var_dump(count($monAnnonce2));die;
-     for($i=0; $i<=count($monAnnonce2); $i++)
-    //echo $test = $monAnnonce2[$i];
-    //var_dump($test);
-     //var_dump("categorie===> ".$monAnnonce2[0]);
      
+     for($i=0; $i<=count($monAnnonce2); $i++)
         echo "<tr>";
         echo "<td></td>";
         echo "<td>".$annonce->getAn_libelle()."</td>";
         echo "<td>".$annonce->getAn_prix()." €</td>";
-        echo "<td>".$annonce->getId_categorie()."</td>";
+        echo "<td>".$annonce->getAn_description()."</td>";
         echo "<td>".$annonce->getAn_date()."</td>";
 
         echo "<td><a href='?action=modifierAnnonce&annonceId=".$annonce->getId_annonce()."'><img src='./Ressources/img/edit.png' width='20'></a></td>";
@@ -48,7 +44,7 @@ Vous n\'avez pas d\'annonce!
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Supprimer categorie</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Supprimer annonce</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

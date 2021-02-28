@@ -1,7 +1,7 @@
 <?php
 
 require_once './Models/Utilisateur.php';
-$bdd = Model::getConnection();
+$bdd = Model::connection();
 require_once './Vues/Utilisateur/mdpOublie.html';
 if(!empty($_POST)){
     if(!empty($_POST['email'])){

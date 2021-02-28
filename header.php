@@ -9,75 +9,83 @@
     </head>
     <body>
         <nav class="navbar  navbar-expand-lg  navbar-light bg-light">
-            
-        <div class="container">
-
-        <div class="row">
-           
-                <ul class="navbar-nav ">
-
-                
-              
-                <div class="col-sm"><!--1-->
-                <a class="navbar-brand" aria-current="page" href="index.php">2roues</a>
-                </div><!--1-->
-               
-                <div class="col-sm">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Acceuil</a>
-                  </li>
-</div>
-               
-                
-<div class="col-sm">
-                  <li class="nav-item">
-                    <a class="nav-link" href="?action=ajouterAnnonce">Ajouter annonce</a>
-                  </li>
-</div>
-              
-
+          <div class="container">
+          <div class="row">
+                 <ul class="navbar-nav">
+                 <!--1-->
+                    <div class="col-sm-6 ">
+                        <a class="navbar-brand " aria-current="page" href="index.php">GreenRide</a>
+                    </div>
+                    <!--1-->
+                     <div class="col-sm-4">
+                       <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
+                      </li>
+                      <!--1-->
+                    </div>
+                    <div class="col-sm-6">
+                        <li class="nav-item">
+                            <a class="nav-link text-success" href="?action=ajouterAnnonce"><img src='./Ressources/img/add.png' width='20'>ajouter annonce</a>
+                        </li>
+                   </div>
               <?php
                   if(isset( $_SESSION['ut_email'])){
-                   
               ?>
-                <div class="col-sm">
-                  <li class="nav-item">
-                    <a class="nav-link" href="?action=mesAnnonces">Mes annonces</a>
-                  </li>
-                  </div>
+              <!--1-->
+                    <div class="col-sm-4">
+                        <li class="nav-item">
+                             <a class="nav-link text-success" href="?action=mesAnnonces">Mes annonces</a>
+                        </li>
+                    </div>
+                    <!--1-->
+                   <div class="col-sm">
+                   <div class="position-absolute top-40 start-40">
 
-                  <div class="col-sm-auto">
-                   <h2><span class="badge bg-success"><h5>Bienvenue</h5><?php echo $_SESSION['ut_email'] ;?></span></h2>
+                         <h2><span class="badge bg-success"><h5>Bienvenue</h5><?php echo $_SESSION['ut_nom'] ;?></span></h2>
+                         </div>
                   </div>
-
-                 
                   <!--1-->
                   <div class="col-sm">
-                  <li class="nav-item">
-                    <a class="nav-link" href="?action=deconnexion" ><p class="text-danger">Déconnexion</p></a>
-                  </li></div>
-                 
-                  <!--1-->
                   
+                        <li class="nav-item">
+                             <a class="nav-link position-absolute  end-0" href="?action=deconnexion" ><p class="text-danger">Déconnexion</p></a>
+                         </li>
+                  </div>
               <?php
                   }else{
               ?>
-              <div class="col-sm">
+              <!--1-->
+                 <div class="col-sm">
                       <li class="nav-item">
-                    <a class="btn btn-outline-success" href="index.php?action=inscription">Inscription</a>
-                  </li></div>
-
-                  <div class="col-sm">
+                      <div class="position-absolute  end-0">
+                          <a class="btn btn-outline-success" href="index.php?action=inscription">Inscription</a>
+                      </div>
+                      </li>
+                  </div>
+                <!--1-->
+                 <div class="col-sm">
                     <li class="nav-item">
-                    <a class="nav-link" href="?action=connexion">Connexion</a>
-                  </li></div>
+                    <div class="position-absolute  end-50">
+                         <a class="btn btn-outline-dark" href="?action=connexion">Connexion</a>
+                    </div>
+                    </li>
+                 </div>
               <?php
                   }
               ?>
-               </div>
-                </ul>
-                </div>
-                </div>
+               
+              </ul>
+          </div><!--div row-->
+           </div><!--div container-->
           </nav>
+
+
+
+
+          
+
+
+
+          
     </body>
 </html>

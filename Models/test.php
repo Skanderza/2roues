@@ -56,7 +56,7 @@ return $this;
 
 
 public Function createUtilisateur($ut_nom, $ut_email, $ut_mdp){
-	$bdd = Model::getConnection();
+	$bdd = Model::connection();
 	$sql = $bdd->prepare("INSERT INTO utilisateur (ut_nom, ut_email, ut_mdp) 
 	VALUES (:ut_nom, :ut_email, :ut_mdp)");
 		$sql->bindValue(':ut_nom', $ut_nom, PDO::PARAM_STR );
@@ -70,7 +70,7 @@ echo "utilisateur ajouté";
 }
 
 public function updateUtilisateur($id, $ut_nom, $ut_email){
-	$bdd = Model::getConnection();
+	$bdd = Model::connection();
 	//var_dump($ut_nom);
 	echo '=====>update '.$ut_nom;die;
 	
